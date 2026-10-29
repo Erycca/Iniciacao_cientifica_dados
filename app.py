@@ -327,6 +327,440 @@ aba_inicio, aba_ssp, aba_judicial, aba_pesquisas, aba_outras, aba_diag = st.tabs
     "📜 DataSenado/TCMSP", "📂 Outras bases", "🔬 Diagnóstico"
 ])
 
+# ============================================================
+# FUNÇÕES PARA DIAGNÓSTICOS SOCIODEMOGRÁFICOS E TERRITORIAIS
+# ============================================================
+
+def localizar_coluna(df, termos):
+    """Localiza colunas por nomes equivalentes, mesmo com acentos."""
+    for coluna in df.columns:
+        nome = normalizar_texto(coluna).replace("_", " ")
+        if any(termo in nome for termo in termos):
+            return coluna
+    return None
+
+
+def exibir_distribuicao(df, coluna, titulo, chave):
+    """Exibe distribuição de uma variável categórica."""
+    dados = df[coluna].dropna()
+
+    if dados.empty:
+        st.info(f"Não há dados disponíveis para {titulo}.")
+        return
+
+    contagem = (
+        dados.astype(str)
+        .value_counts()
+        .rename_axis("Categoria")
+        .reset_index(name="Quantidade")
+    )
+    contagem["Percentual (%)"] = (
+        contagem["Quantidade"] / contagem["Quantidade"].sum() * 100
+    ).round(2)
+
+    fig = px.bar(
+        contagem.sort_values("Quantidade"),
+        x="Quantidade",
+        y="Categoria",
+        orientation="h",
+        text="Quantidade",
+        title=titulo
+    )
+    st.plotly_chart(fig, use_container_width=True, key=chave)
+    st.dataframe(contagem, use_container_width=True)
+
+
+def diagnostico_sociodemografico(tabelas):
+    st.subheader("Perfil sociodemográfico")
+
+    candidatas = []
+    for i, tabela in enumerate(tabelas):
+        df = tabela["dados"]
+        colunas = {
+            "idade": localizar_coluna(df, ["idade", "faixa etaria"]),
+            "raca": localizar_coluna(df, ["raca", "cor"]),
+            "escolaridade": localizar_coluna(df, ["escolaridade", "instrucao", "educacao"]),
+            "classe": localizar_coluna(df, ["classe social", "renda", "faixa salarial", "rendimento"])
+        }
+        if any(colunas.values()):
+            candidatas.append((i, tabela, colunas))
+
+    if not candidatas:
+        st.warning(
+            "Não foram encontradas colunas de idade, raça/cor, escolaridade "
+            "ou renda nas bases carregadas. Inclua uma planilha com essas variáveis."
+        )
+        return
+
+    escolha = st.selectbox(
+        "Selecione a base sociodemográfica",
+        range(len(candidatas)),
+        format_func=lambda x: candidatas[x][1]["nome"],
+        key="socio_base"
+    )
+
+    _, tabela, colunas = candidatas[escolha]
+    df = tabela["dados"].copy()
+
+    st.caption(f"Fonte: {tabela['arquivo']} | Registros: {len(df):,}")
+
+    disponiveis = [nome for nome, coluna in colunas.items() if coluna]
+    st.write("Variáveis encontradas:", ", ".join(disponiveis))
+
+    c1, c2 = st.columns(2)
+
+    with c1:
+        if colunas["idade"]:
+            coluna = colunas["idade"]
+            idade = converter_numero_br(df[coluna]).dropna()
+            if not idade.empty:
+                faixas = pd.cut(
+                    idade,
+                    bins=[0, 17, 24, 34, 44, 59, 120],
+                    labels=[
+                        "Até 17 anos", "18 a 24 anos", "25 a 34 anos",
+                        "35 a 44 anos", "45 a 59 anos", "60 anos ou mais"
+                    ],
+                    include_lowest=True
+                )
+                faixa_df = faixas.value_counts().sort_index().reset_index()
+                faixa_df.columns = ["Faixa etária", "Quantidade"]
+                fig = px.bar(
+                    faixa_df, x="Faixa etária", y="Quantidade",
+                    text="Quantidade", title="Distribuição por faixa etária"
+                )
+                st.plotly_chart(fig, use_container_width=True)
+                st.dataframe(faixa_df, use_container_width=True)
+            else:
+                exibir_distribuicao(df, coluna, "Faixa etária registrada", "idade_cat")
+
+    with c2:
+        if colunas["raca"]:
+            exibir_distribuicao(
+                df, colunas["raca"], "Distribuição por cor/raça", "raca_grafico"
+            )
+
+    c3, c4 = st.columns(2)
+
+    with c3:
+        if colunas["escolaridade"]:
+            exibir_distribuicao(
+                df, colunas["escolaridade"],
+                "Distribuição por escolaridade", "escolaridade_grafico"
+            )
+
+    with c4:
+        if colunas["classe"]:
+            exibir_distribuicao(
+                df, colunas["classe"],
+                "Distribuição por renda ou classe social", "classe_grafico"
+            )
+
+    st.info(
+        "Os percentuais representam a distribuição dos registros desta base. "
+        "Não devem ser interpretados como perfil de todas as vítimas do Estado "
+        "sem amostragem representativa e metodologia compatível."
+    )
+
+
+def diagnostico_institucional(tabelas):
+    st.subheader("Identificação de gaps e deficiências institucionais")
+
+    st.markdown(
+        "Cruze uma base de ocorrências com uma base de serviços de proteção. "
+        "As duas bases precisam possuir uma coluna territorial compatível, "
+        "preferencialmente município ou código IBGE."
+    )
+
+    opcoes = [
+        i for i, t in enumerate(tabelas)
+        if localizar_coluna(t["dados"], ["municipio", "município", "cidade"])
+        or localizar_coluna(t["dados"], ["regiao", "comarca"])
+    ]
+
+    if len(opcoes) < 2:
+        st.warning(
+            "Para realizar o cruzamento, carregue pelo menos duas bases com "
+            "uma coluna territorial compatível: uma de ocorrências e outra "
+            "de instituições de proteção. A base SSP atual possui Capital, "
+            "Demacro e Interior, mas não identifica cada município."
+        )
+        return
+
+    nomes = {
+        i: tabelas[i]["nome"] for i in opcoes
+    }
+
+    crime_id = st.selectbox(
+        "Base de ocorrências",
+        opcoes,
+        format_func=lambda i: nomes[i],
+        key="gap_crimes"
+    )
+
+    servico_opcoes = [i for i in opcoes if i != crime_id]
+
+    servico_id = st.selectbox(
+        "Base de instituições/serviços",
+        servico_opcoes,
+        format_func=lambda i: nomes[i],
+        key="gap_servicos"
+    )
+
+    crimes = tabelas[crime_id]["dados"].copy()
+    servicos = tabelas[servico_id]["dados"].copy()
+
+    col_crime = localizar_coluna(crimes, ["municipio", "cidade", "regiao", "comarca"])
+    col_servico = localizar_coluna(servicos, ["municipio", "cidade", "regiao", "comarca"])
+
+    if not col_crime or not col_servico:
+        st.warning("Não foi possível identificar as colunas territoriais.")
+        return
+
+    col_quantidade = localizar_coluna(
+        crimes, ["quantidade_casos", "total", "ocorrencias", "casos", "registros"]
+    )
+
+    if not col_quantidade:
+        st.warning("Não foi encontrada uma coluna numérica de ocorrências.")
+        return
+
+    quantidade = converter_numero_br(crimes[col_quantidade])
+    crimes["_territorio"] = (
+        crimes[col_crime].astype("string").str.strip().str.upper()
+    )
+    crimes["_ocorrencias"] = quantidade
+
+    servicos["_territorio"] = (
+        servicos[col_servico].astype("string").str.strip().str.upper()
+    )
+
+    ocorrencias = (
+        crimes.groupby("_territorio", as_index=False)["_ocorrencias"]
+        .sum()
+    )
+
+    tipo_servico = localizar_coluna(
+        servicos, ["tipo de unidade", "tipo de servico", "instituicao", "equipamento", "servico"]
+    )
+
+    if tipo_servico:
+        resumo_servicos = (
+            servicos.groupby("_territorio")[tipo_servico]
+            .nunique()
+            .reset_index(name="Quantidade de tipos de serviços")
+        )
+    else:
+        resumo_servicos = (
+            servicos.groupby("_territorio")
+            .size()
+            .reset_index(name="Quantidade de serviços")
+        )
+
+    cruzamento = ocorrencias.merge(
+        resumo_servicos, on="_territorio", how="outer"
+    )
+
+    cruzamento = cruzamento.rename(columns={"_territorio": "Território"})
+    cruzamento["Ocorrências"] = cruzamento["_ocorrencias"].fillna(0)
+    cruzamento = cruzamento.drop(columns=["_ocorrencias"])
+
+    coluna_servicos = (
+        "Quantidade de tipos de serviços"
+        if "Quantidade de tipos de serviços" in cruzamento.columns
+        else "Quantidade de serviços"
+    )
+
+    cruzamento[coluna_servicos] = cruzamento[coluna_servicos].fillna(0)
+
+    fig = px.scatter(
+        cruzamento,
+        x=coluna_servicos,
+        y="Ocorrências",
+        text="Território",
+        size="Ocorrências",
+        title="Ocorrências registradas versus oferta de serviços"
+    )
+    st.plotly_chart(fig, use_container_width=True)
+
+    st.dataframe(cruzamento, use_container_width=True)
+
+    st.download_button(
+        "Baixar cruzamento institucional",
+        data=exportar_csv(cruzamento),
+        file_name="diagnostico_gaps_institucionais.csv",
+        mime="text/csv",
+        key="baixar_gaps"
+    )
+
+    st.caption(
+        "Este cruzamento é exploratório. A quantidade de unidades não mede, "
+        "isoladamente, cobertura, capacidade de atendimento, distância ou qualidade "
+        "do serviço. Também não constitui medida de impunidade."
+    )
+
+
+def diagnostico_vulnerabilidade(tabelas):
+    st.subheader("Índice exploratório de vulnerabilidade")
+
+    opcoes = [
+        i for i, t in enumerate(tabelas)
+        if len(t["dados"].select_dtypes(include=np.number).columns) >= 2
+    ]
+
+    if not opcoes:
+        st.warning("Não há bases com pelo menos duas variáveis numéricas.")
+        return
+
+    i = st.selectbox(
+        "Base para cálculo do índice",
+        opcoes,
+        format_func=lambda x: tabelas[x]["nome"],
+        key="vuln_base"
+    )
+
+    df = tabelas[i]["dados"].copy()
+    numericas = df.select_dtypes(include=np.number).columns.tolist()
+
+    selecionadas = st.multiselect(
+        "Selecione os indicadores que comporão o índice",
+        numericas,
+        key="vuln_indicadores"
+    )
+
+    if len(selecionadas) < 2:
+        st.info("Selecione pelo menos dois indicadores numéricos.")
+        return
+
+    st.markdown(
+        "Defina a direção de cada indicador. Por exemplo: maior desemprego "
+        "pode representar maior vulnerabilidade; maior renda pode representar "
+        "menor vulnerabilidade."
+    )
+
+    padronizados = pd.DataFrame(index=df.index)
+
+    for coluna in selecionadas:
+        direcao = st.selectbox(
+            f"Como interpretar {coluna}?",
+            ["Maior valor = maior vulnerabilidade",
+             "Menor valor = maior vulnerabilidade"],
+            key=f"direcao_{i}_{coluna}"
+        )
+
+        valores = pd.to_numeric(df[coluna], errors="coerce")
+        minimo, maximo = valores.min(), valores.max()
+
+        if pd.isna(minimo) or pd.isna(maximo):
+            continue
+
+        if maximo == minimo:
+            padronizados[coluna] = 0.0
+        else:
+            escala = (valores - minimo) / (maximo - minimo)
+            if direcao == "Menor valor = maior vulnerabilidade":
+                escala = 1 - escala
+            padronizados[coluna] = escala
+
+    if padronizados.shape[1] < 2:
+        st.warning("Não foi possível calcular o índice com os indicadores escolhidos.")
+        return
+
+    padronizados["Indice de vulnerabilidade"] = (
+        padronizados.mean(axis=1) * 100
+    )
+
+    coluna_territorio = localizar_coluna(
+        df, ["municipio", "cidade", "territorio", "regiao"]
+    )
+
+    if coluna_territorio:
+        padronizados["Território"] = df[coluna_territorio].astype(str)
+        ranking = padronizados[
+            ["Território", "Indice de vulnerabilidade"]
+        ].sort_values("Indice de vulnerabilidade", ascending=False)
+        eixo = "Território"
+    else:
+        ranking = padronizados[["Indice de vulnerabilidade"]].copy()
+        ranking["Registro"] = ranking.index.astype(str)
+        eixo = "Registro"
+        st.warning(
+            "A base não possui município ou região identificável. "
+            "O resultado será apresentado por registro, não por território."
+        )
+
+    fig = px.bar(
+        ranking.head(30).sort_values("Indice de vulnerabilidade"),
+        x="Indice de vulnerabilidade",
+        y=eixo,
+        orientation="h",
+        title="Índice exploratório de vulnerabilidade (0 a 100)"
+    )
+    st.plotly_chart(fig, use_container_width=True)
+    st.dataframe(ranking, use_container_width=True)
+
+    st.download_button(
+        "Baixar índice de vulnerabilidade",
+        data=exportar_csv(ranking),
+        file_name="indice_vulnerabilidade_exploratorio.csv",
+        mime="text/csv",
+        key="baixar_vulnerabilidade"
+    )
+
+    st.warning(
+        "Este índice é exploratório e depende dos indicadores e direções escolhidos. "
+        "Não é um modelo validado, não identifica risco individual e não demonstra "
+        "causalidade. Antes de uso em políticas públicas, requer justificativa teórica, "
+        "tratamento de dados, análise de sensibilidade e validação independente."
+    )
+
+
+def diagnostico_associacoes(tabelas):
+    st.subheader("Associações estatísticas e investigação de fatores")
+
+    opcoes = [
+        i for i, t in enumerate(tabelas)
+        if len(t["dados"].select_dtypes(include=np.number).columns) >= 2
+    ]
+
+    if not opcoes:
+        st.warning("Não existem bases com variáveis numéricas suficientes.")
+        return
+
+    i = st.selectbox(
+        "Selecione uma base para investigar associações",
+        opcoes,
+        format_func=lambda x: tabelas[x]["nome"],
+        key="assoc_base"
+    )
+
+    df = tabelas[i]["dados"].select_dtypes(include=np.number).copy()
+    df = df.dropna(axis=1, how="all")
+
+    if len(df.columns) < 2:
+        st.info("São necessárias pelo menos duas variáveis numéricas.")
+        return
+
+    correlacao = df.corr(method="spearman", min_periods=3)
+
+    fig = px.imshow(
+        correlacao,
+        text_auto=".2f",
+        aspect="auto",
+        zmin=-1,
+        zmax=1,
+        color_continuous_scale="RdBu_r",
+        title="Matriz de correlação de Spearman"
+    )
+    st.plotly_chart(fig, use_container_width=True)
+    st.dataframe(correlacao, use_container_width=True)
+
+    st.caption(
+        "A correlação indica associação estatística, não causalidade. "
+        "Resultados dependem do número de observações, qualidade dos dados, "
+        "variáveis de controle e comparabilidade das unidades analisadas."
+    )
+
 # ------------------------------------------------------------
 # VISÃO GERAL
 # ------------------------------------------------------------
@@ -556,49 +990,95 @@ with aba_outras:
         with st.expander("Análise da base"):
             analise_geral(lista[i]["dados"], f"outras_analise_{i}")
 
+#
 # ------------------------------------------------------------
-# DIAGNÓSTICO
+# DIAGNÓSTICOS, VULNERABILIDADE E GAPS INSTITUCIONAIS
 # ------------------------------------------------------------
 with aba_diag:
-    st.header("🔬 Diagnóstico de arquivos e qualidade")
-    inventario = pd.DataFrame([{
-        "Tabela": t["nome"], "Arquivo": t["arquivo"], "Fonte estimada": t["fonte"],
-        "Registros": len(t["dados"]), "Colunas": len(t["dados"].columns),
-        "Valores nulos": int(t["dados"].isna().sum().sum()),
-        "Linhas duplicadas": int(t["dados"].duplicated().sum()),
-        "Caminho": t["caminho"]
-    } for t in tabelas])
-    st.dataframe(inventario, use_container_width=True)
-    st.download_button(
-        "Baixar inventário de bases",
-        data=exportar_csv(inventario),
-        file_name="inventario_bases.csv",
-        mime="text/csv",
-        key="diag_inventario"
+    st.header("🔬 Diagnósticos, Causalidade e Vulnerabilidade")
+    st.caption(
+        "Análises sociodemográficas, estatísticas, territoriais "
+        "e institucionais com base nos arquivos carregados."
     )
-    st.subheader("Arquivos com erro")
-    if erros:
-        st.dataframe(pd.DataFrame(erros), use_container_width=True)
-    else:
-        st.success("Nenhum erro de leitura foi identificado.")
-    st.subheader("Inventário de colunas")
-    colunas = []
-    for t in tabelas:
-        for c in t["dados"].columns:
-            colunas.append({
-                "Tabela": t["nome"], "Arquivo": t["arquivo"],
-                "Fonte estimada": t["fonte"], "Coluna": str(c),
-                "Tipo de dado": str(t["dados"][c].dtype)
-            })
-    df_colunas = pd.DataFrame(colunas)
-    st.dataframe(df_colunas, use_container_width=True)
-    st.download_button(
-        "Baixar inventário de colunas",
-        data=exportar_csv(df_colunas),
-        file_name="inventario_colunas.csv",
-        mime="text/csv",
-        key="diag_colunas"
-    )
+
+    diag_socio, diag_gaps, diag_vuln, diag_assoc, diag_qualidade = st.tabs([
+        "👩 Perfil sociodemográfico",
+        "🏛️ Gaps institucionais",
+        "📊 Vulnerabilidade",
+        "🧠 Associações e causalidade",
+        "🔎 Qualidade dos dados"
+    ])
+
+    with diag_socio:
+        diagnostico_sociodemografico(tabelas)
+
+    with diag_gaps:
+        diagnostico_institucional(tabelas)
+
+    with diag_vuln:
+        diagnostico_vulnerabilidade(tabelas)
+
+    with diag_assoc:
+        diagnostico_associacoes(tabelas)
+
+    with diag_qualidade:
+        st.subheader("Inventário e qualidade das bases")
+
+        inventario = pd.DataFrame([{
+            "Tabela": t["nome"],
+            "Arquivo": t["arquivo"],
+            "Fonte estimada": t["fonte"],
+            "Registros": len(t["dados"]),
+            "Colunas": len(t["dados"].columns),
+            "Valores nulos": int(t["dados"].isna().sum().sum()),
+            "Linhas duplicadas": int(t["dados"].duplicated().sum()),
+            "Caminho": t["caminho"]
+        } for t in tabelas])
+
+        st.dataframe(inventario, use_container_width=True)
+
+        st.download_button(
+            "Baixar inventário de bases",
+            data=exportar_csv(inventario),
+            file_name="inventario_bases.csv",
+            mime="text/csv",
+            key="diag_inventario"
+        )
+
+        st.subheader("Arquivos com erro")
+
+        if erros:
+            st.dataframe(pd.DataFrame(erros), use_container_width=True)
+        else:
+            st.success("Nenhum erro de leitura foi identificado.")
+
+        st.subheader("Inventário de colunas")
+
+        colunas = []
+
+        for t in tabelas:
+            for c in t["dados"].columns:
+                colunas.append({
+                    "Tabela": t["nome"],
+                    "Arquivo": t["arquivo"],
+                    "Fonte estimada": t["fonte"],
+                    "Coluna": str(c),
+                    "Tipo de dado": str(t["dados"][c].dtype),
+                    "Valores preenchidos": int(t["dados"][c].notna().sum()),
+                    "Valores ausentes": int(t["dados"][c].isna().sum())
+                })
+
+        df_colunas = pd.DataFrame(colunas)
+        st.dataframe(df_colunas, use_container_width=True)
+
+        st.download_button(
+            "Baixar inventário de colunas",
+            data=exportar_csv(df_colunas),
+            file_name="inventario_colunas.csv",
+            mime="text/csv",
+            key="diag_colunas"
+        )
+
 
 st.markdown("---")
 st.caption(
