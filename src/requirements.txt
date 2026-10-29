@@ -1,9 +1,0 @@
-Plaintext
-streamlit
-pandas
-plotly
-numpy
-scikit-learn
-sqlalchemy
-psycopg2-binary
-openpyxl
