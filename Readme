@@ -1,11 +1,15 @@
-# ⚖️ Observatório de Violência contra a Mulher - SP (Iniciação Científica)
-
+# ⚖️ Observatório de Violência contra a Mulher - SP
+### Iniciação Científica
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
+
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://observatoriodeviolenciacontramulhersp.streamlit.app)
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-> **Projeto de Iniciação Científica:** *"Dos Dados à Ação: Avaliação dos Mecanismos de Proteção e Diagnóstico da Violência de Gênero no Estado de São Paulo"*.
+> **Projeto de Iniciação Científica:**  
+> "Dos Dados à Ação: Avaliação dos Mecanismos de Proteção e Diagnóstico da Violência de Gênero no Estado de São Paulo".
+
 
 ---
 
