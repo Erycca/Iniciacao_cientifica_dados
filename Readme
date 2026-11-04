@@ -1,0 +1,58 @@
+# ⚖️ Observatório de Violência contra a Mulher - SP (Iniciação Científica)
+
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://observatoriodeviolenciacontramulhersp.streamlit.app)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+> **Projeto de Iniciação Científica:** *"Dos Dados à Ação: Avaliação dos Mecanismos de Proteção e Diagnóstico da Violência de Gênero no Estado de São Paulo"*.
+
+---
+
+## 📌 Sobre o Projeto
+
+Este repositório contém a infraestrutura de dados e a aplicação interativa do **Observatório de Violência contra a Mulher no Estado de São Paulo**. O projeto desenvolve um pipeline de engenharia de dados (ETL), modelagem preditiva e visualização interativa em Python para analisar a eficácia dos mecanismos de proteção, os vazios assistenciais e o perfil sociodemográfico das vítimas no estado.
+
+A aplicação realiza a **triangulação de dados públicos e de pesquisas de percepção**, articulando registros de segurança pública, dados judiciais contenciosos e microdados amostrais para fundamentar diagnósticos e políticas públicas baseadas em evidências.
+
+---
+
+## 🔬 Objetivos Principais
+
+* **Geoestatística e Mapeamento de Hotspots:** Analisar a distribuição espacial das ocorrências e identificar o fenômeno da interiorização da violência letal de gênero no Estado de São Paulo.
+* **Diagnóstico de Vazios Assistenciais:** Cruzar a localização das ocorrências criminais e dos processos judiciais com a cobertura da rede socioassistencial e Delegacias Especializadas (DDMs/DEAMs).
+* **Modelagem Preditiva (Machine Learning):** Calcular o *Índice Sintético de Vulnerabilidade de Gênero (ISVG)* via algoritmo *Random Forest Regressor* para identificar o peso relativo de variáveis socioeconômicas e institucionais.
+* **Transparência e Suporte à Gestão Pública:** Disponibilizar um painel web interativo, aberto e auditável em Streamlit para visualização de indicadores macro, séries temporais e perfil de vitimização.
+
+---
+
+## 📊 Fontes de Dados Integradas
+
+1. **Secretaria da Segurança Pública do Estado de São Paulo (SSP-SP):** Microdados de Boletins de Ocorrência (BOs) e estatísticas criminais (feminicídio, lesão corporal, ameaça, estupro e registros de MPUs).
+2. **Conselho Nacional de Justiça (CNJ / DataJud) & TJSP:** Indicadores de tramitação processual, concessão de Medidas Protetivas de Urgência (MPUs) e volume de processos por comarca.
+3. **Instituto de Pesquisa DataSenado / OMV:** Microdados da *10ª Pesquisa Nacional de Violência contra a Mulher* ($n=800$ em SP), detalhando tipos de violência (psicológica, física, moral, patrimonial e sexual), subnotificação e percepção sobre a Lei Maria da Penha.
+4. **IPEA / FBPDS (Atlas da Violência):** Parâmetros contextuais para análise de mortalidade e estimativa de homicídios ocultos ("cifra negra").
+5. **IBGE:** Dados populacionais e socioeconômicos para o cálculo de taxas padronizadas por 100 mil habitantes.
+
+---
+
+## 📁 Estrutura do Repositório
+
+```text
+Iniciacao_cientifica_dados/
+│
+├── .streamlit/               # Configurações visuais e temas da plataforma
+├── data/
+│   ├── raw/                  # Microdados brutos imutáveis (.csv, .xlsx, .pdf)
+│   └── processed/            # Datasets higienizados e padronizados
+│       └── excel_externo/    # Tabelas consolidadas (SSP-SP, DataJud e DataSenado)
+│
+├── src/                      # Código-fonte modular do pipeline ETL
+│   ├── __init__.py
+│   ├── config.py             # Variáveis de ambiente e caminhos padrão
+│   ├── extractor.py          # Requisições e consumo da API do DataJud
+│   ├── processor.py          # Limpeza, normalização e cálculo de indicadores
+│   └── ssp_processor.py      # Processamento das bases estatísticas da SSP-SP
+│
+├── app.py                    # Aplicação principal da interface Streamlit
+├── requirements.txt          # Dependências do ambiente Python (Pandas, Plotly, Scikit-Learn)
+└── README.md                 # Documentação oficial do repositório
