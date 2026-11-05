@@ -125,7 +125,6 @@ O projeto possui uma aplicação desenvolvida em Streamlit para disponibilizar a
 
 ## 📁 Estrutura do Repositório
 
-```text
 Iniciacao_cientifica_dados/
 │
 ├── .streamlit/
