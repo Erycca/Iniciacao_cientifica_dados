@@ -1,42 +1,155 @@
 # ⚖️ Observatório de Violência contra a Mulher - SP
-### Iniciação Científica
 
-[![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
+### Dos Dados à Ação: Ciência de Dados, Tecnologia e Políticas Públicas
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://observatoriodeviolenciacontramulhersp.streamlit.app)
+<p align="left">
+  <a href="https://www.python.org/">
+    <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+  </a>
+  <a href="https://streamlit.io/">
+    <img src="https://img.shields.io/badge/Streamlit-Dashboard-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit">
+  </a>
+  <a href="https://www.postgresql.org/">
+    <img src="https://img.shields.io/badge/PostgreSQL-Database-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL">
+  </a>
+  <a href="https://pandas.pydata.org/">
+    <img src="https://img.shields.io/badge/Pandas-Data%20Analysis-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="Pandas">
+  </a>
+  <a href="https://scikit-learn.org/">
+    <img src="https://img.shields.io/badge/Scikit--Learn-Machine%20Learning-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white" alt="Scikit-Learn">
+  </a>
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="MIT License">
+  </a>
+</p>
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-
-> **Projeto de Iniciação Científica:**  
-> "Dos Dados à Ação: Avaliação dos Mecanismos de Proteção e Diagnóstico da Violência de Gênero no Estado de São Paulo".
-
+<p align="center">
+  <a href="https://observatoriodeviolenciacontramulhersp.streamlit.app">
+    <img src="https://img.shields.io/badge/ACESSAR%20OBSERVAT%C3%93RIO-Clique%20aqui-2E8B57?style=for-the-badge&logo=streamlit&logoColor=white" alt="Acessar Observatório">
+  </a>
+</p>
 
 ---
 
 ## 📌 Sobre o Projeto
 
-Este repositório contém a infraestrutura de dados e a aplicação interativa do **Observatório de Violência contra a Mulher no Estado de São Paulo**. O projeto desenvolve um pipeline de engenharia de dados (ETL), modelagem preditiva e visualização interativa em Python para analisar a eficácia dos mecanismos de proteção, os vazios assistenciais e o perfil sociodemográfico das vítimas no estado.
+O **Observatório de Violência contra a Mulher no Estado de São Paulo** é um projeto de Iniciação Científica que utiliza Ciência de Dados, Engenharia de Dados e Inteligência Artificial para investigar a violência de gênero e avaliar os mecanismos institucionais de proteção às mulheres.
 
-A aplicação realiza a **triangulação de dados públicos e de pesquisas de percepção**, articulando registros de segurança pública, dados judiciais contenciosos e microdados amostrais para fundamentar diagnósticos e políticas públicas baseadas em evidências.
+A pesquisa desenvolve uma infraestrutura de dados capaz de integrar, organizar, processar e analisar informações provenientes de diferentes fontes públicas e institucionais.
+
+O projeto busca identificar padrões de violência, características sociodemográficas das vítimas, distribuição territorial das ocorrências e possíveis vazios assistenciais na rede de proteção.
+
+A proposta é transformar dados públicos em informações estratégicas que contribuam para o diagnóstico da realidade estadual e para o desenvolvimento de políticas públicas baseadas em evidências.
+
+> **Projeto de Iniciação Científica**
+>
+> "Dos Dados à Ação: Avaliação dos Mecanismos de Proteção e Diagnóstico da Violência de Gênero no Estado de São Paulo."
 
 ---
 
-## 🔬 Objetivos Principais
+## 🎯 Objetivos da Pesquisa
 
-* **Geoestatística e Mapeamento de Hotspots:** Analisar a distribuição espacial das ocorrências e identificar o fenômeno da interiorização da violência letal de gênero no Estado de São Paulo.
-* **Diagnóstico de Vazios Assistenciais:** Cruzar a localização das ocorrências criminais e dos processos judiciais com a cobertura da rede socioassistencial e Delegacias Especializadas (DDMs/DEAMs).
-* **Modelagem Preditiva (Machine Learning):** Calcular o *Índice Sintético de Vulnerabilidade de Gênero (ISVG)* via algoritmo *Random Forest Regressor* para identificar o peso relativo de variáveis socioeconômicas e institucionais.
-* **Transparência e Suporte à Gestão Pública:** Disponibilizar um painel web interativo, aberto e auditável em Streamlit para visualização de indicadores macro, séries temporais e perfil de vitimização.
+- **Análise espacial:** investigar a distribuição territorial das ocorrências e identificar regiões com maior concentração de violência.
+- **Diagnóstico institucional:** analisar a distribuição dos mecanismos de proteção, incluindo Delegacias Especializadas e serviços de atendimento.
+- **Análise sociodemográfica:** identificar características das vítimas considerando as variáveis disponíveis nas bases consultadas.
+- **Integração de dados:** relacionar informações de segurança pública, registros judiciais e pesquisas de percepção social.
+- **Machine Learning:** explorar modelos preditivos e indicadores sintéticos para investigar padrões de vulnerabilidade.
+- **Transparência:** disponibilizar os resultados por meio de um dashboard interativo e acessível.
 
 ---
 
 ## 📊 Fontes de Dados Integradas
 
-1. **Secretaria da Segurança Pública do Estado de São Paulo (SSP-SP):** Microdados de Boletins de Ocorrência (BOs) e estatísticas criminais (feminicídio, lesão corporal, ameaça, estupro e registros de MPUs).
-2. **Conselho Nacional de Justiça (CNJ / DataJud) & TJSP:** Indicadores de tramitação processual, concessão de Medidas Protetivas de Urgência (MPUs) e volume de processos por comarca.
-3. **Instituto de Pesquisa DataSenado / OMV:** Microdados da *10ª Pesquisa Nacional de Violência contra a Mulher* ($n=800$ em SP), detalhando tipos de violência (psicológica, física, moral, patrimonial e sexual), subnotificação e percepção sobre a Lei Maria da Penha.
-4. **IPEA / FBPDS (Atlas da Violência):** Parâmetros contextuais para análise de mortalidade e estimativa de homicídios ocultos ("cifra negra").
-5. **IBGE:** Dados populacionais e socioeconômicos para o cálculo de taxas padronizadas por 100 mil habitantes.
+A pesquisa utiliza diferentes fontes de informação para ampliar a compreensão do fenômeno da violência contra a mulher.
+
+| Fonte | Informações analisadas |
+|---|---|
+| SSP-SP | Registros de ocorrências e estatísticas criminais |
+| CNJ / DataJud | Informações sobre processos judiciais |
+| TJSP | Dados judiciais relacionados à violência de gênero |
+| DataSenado / OMV | Pesquisa de percepção e vitimização |
+| IPEA / Atlas da Violência | Indicadores de violência e mortalidade |
+| IBGE | Dados populacionais e socioeconômicos |
+
+### Integração e triangulação
+
+A metodologia contempla a articulação de três dimensões:
+
+1. **Segurança Pública:** registros administrativos de ocorrências.
+2. **Sistema de Justiça:** informações sobre processos e mecanismos judiciais de proteção.
+3. **Percepção Social:** dados amostrais sobre experiências de violência e subnotificação.
+
+A integração permite confrontar os registros oficiais com informações de percepção e vitimização, considerando as diferenças metodológicas e as limitações de cada fonte.
+
+---
+
+## 🔬 Metodologia e Processamento de Dados
+
+O desenvolvimento contempla as seguintes etapas:
+
+1. **Extração:** obtenção de dados de fontes públicas e arquivos institucionais.
+2. **Tratamento:** limpeza, padronização, identificação de inconsistências e transformação dos dados.
+3. **Integração:** organização das bases em estruturas compatíveis para análise.
+4. **Análise exploratória:** investigação de frequências, distribuições, tendências e indicadores.
+5. **Modelagem:** exploração de técnicas estatísticas e algoritmos de Machine Learning.
+6. **Visualização:** construção de gráficos, tabelas e indicadores interativos.
+7. **Disponibilização:** publicação dos resultados em aplicação web utilizando Streamlit.
+
+### Tecnologias utilizadas
+
+| Tecnologia | Aplicação |
+|---|---|
+| Python | Linguagem principal |
+| Pandas | Manipulação e tratamento de dados |
+| NumPy | Operações numéricas |
+| Scikit-Learn | Modelagem e Machine Learning |
+| Plotly | Visualização interativa |
+| Streamlit | Desenvolvimento do dashboard |
+| PostgreSQL | Banco de dados relacional |
+| SQLAlchemy | Integração com banco de dados |
+| Git e GitHub | Versionamento e documentação |
+
+---
+
+## 🤖 Análise de Dados e Machine Learning
+
+O projeto contempla análises voltadas à identificação de padrões e vulnerabilidades relacionadas à violência de gênero.
+
+Entre as possibilidades analíticas estão:
+
+- Distribuição temporal das ocorrências.
+- Distribuição geográfica dos registros.
+- Perfil sociodemográfico das vítimas.
+- Comparação entre registros administrativos e pesquisas amostrais.
+- Identificação de lacunas na rede de proteção.
+- Exploração de modelos de regressão e indicadores de vulnerabilidade.
+
+Uma das propostas é o desenvolvimento do **Índice Sintético de Vulnerabilidade de Gênero (ISVG)**, utilizando variáveis socioeconômicas e institucionais e explorando o algoritmo Random Forest Regressor.
+
+Os resultados dos modelos devem ser interpretados considerando a qualidade, a disponibilidade e as limitações das bases utilizadas.
+
+---
+
+## 📈 Dashboard Interativo
+
+O projeto possui uma aplicação desenvolvida em Streamlit para disponibilizar as análises e facilitar a exploração dos dados.
+
+### Acesse o Observatório
+
+<p align="center">
+  <a href="https://observatoriodeviolenciacontramulhersp.streamlit.app">
+    <img src="https://img.shields.io/badge/ABRIR%20DASHBOARD-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Abrir Dashboard">
+  </a>
+</p>
+
+### Módulos de análise
+
+- **SSP-SP:** análise dos registros de segurança pública.
+- **DataJud / CNJ / TJSP:** exploração das informações judiciais.
+- **DataSenado:** análise de dados de percepção e vitimização.
+- **Visão Geral Integrada:** consolidação de indicadores e comparações entre fontes.
+- **Diagnóstico de Gaps:** investigação de possíveis lacunas nos mecanismos de proteção.
+- **Machine Learning:** exploração de modelos e indicadores de vulnerabilidade.
 
 ---
 
@@ -45,19 +158,120 @@ A aplicação realiza a **triangulação de dados públicos e de pesquisas de pe
 ```text
 Iniciacao_cientifica_dados/
 │
-├── .streamlit/               # Configurações visuais e temas da plataforma
+├── .streamlit/
+│   └── config.toml
+│
 ├── data/
-│   ├── raw/                  # Microdados brutos imutáveis (.csv, .xlsx, .pdf)
-│   └── processed/            # Datasets higienizados e padronizados
-│       └── excel_externo/    # Tabelas consolidadas (SSP-SP, DataJud e DataSenado)
+│   ├── raw/
+│   │   └── Arquivos originais das fontes de dados
+│   │
+│   └── processed/
+│       ├── excel_externo/
+│       └── Arquivos tratados e consolidados
 │
-├── src/                      # Código-fonte modular do pipeline ETL
+├── src/
 │   ├── __init__.py
-│   ├── config.py             # Variáveis de ambiente e caminhos padrão
-│   ├── extractor.py          # Requisições e consumo da API do DataJud
-│   ├── processor.py          # Limpeza, normalização e cálculo de indicadores
-│   └── ssp_processor.py      # Processamento das bases estatísticas da SSP-SP
+│   ├── config.py
+│   ├── extractor.py
+│   ├── processor.py
+│   └── ssp_processor.py
 │
-├── app.py                    # Aplicação principal da interface Streamlit
-├── requirements.txt          # Dependências do ambiente Python (Pandas, Plotly, Scikit-Learn)
-└── README.md                 # Documentação oficial do repositório
+├── app.py
+├── requirements.txt
+├── LICENSE
+└── README.md
+```
+
+---
+
+## ⚙️ Como Executar o Projeto
+
+### 1. Clone o repositório
+
+```bash
+git clone https://github.com/Erycca/Iniciacao_cientifica_dados.git
+```
+
+### 2. Acesse a pasta
+
+```bash
+cd Iniciacao_cientifica_dados
+```
+
+### 3. Crie um ambiente virtual
+
+```bash
+python -m venv venv
+```
+
+### 4. Ative o ambiente virtual
+
+Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+Linux / macOS:
+
+```bash
+source venv/bin/activate
+```
+
+### 5. Instale as dependências
+
+```bash
+pip install -r requirements.txt
+```
+
+### 6. Execute a aplicação
+
+```bash
+streamlit run app.py
+```
+
+---
+
+## 📚 Contribuição Científica e Impacto Social
+
+O Observatório busca contribuir para a democratização do acesso à informação e para o fortalecimento de iniciativas de enfrentamento à violência contra a mulher.
+
+A utilização de Ciência de Dados permite organizar informações dispersas, investigar padrões e identificar questões que merecem atenção por parte dos pesquisadores e gestores públicos.
+
+O projeto também evidencia a importância da transparência, da qualidade dos dados e da integração entre instituições para a construção de diagnósticos mais abrangentes.
+
+---
+
+## ⚠️ Considerações sobre os Dados
+
+As bases utilizadas possuem diferentes períodos de referência, metodologias de coleta, unidades de análise e níveis de abrangência.
+
+Por esse motivo, as comparações são realizadas respeitando as características de cada fonte.
+
+Os registros administrativos não representam necessariamente a totalidade dos episódios de violência, considerando a possibilidade de subnotificação.
+
+Os resultados apresentados possuem finalidade acadêmica, científica e informativa.
+
+---
+
+## 👩‍💻 Autoria e Desenvolvimento
+
+Projeto desenvolvido no contexto de **Iniciação Científica em Ciência da Computação**.
+
+**Pesquisadora:** Érica da Silva Barbosa
+
+**Área de pesquisa:** Ciência de Dados aplicada à análise da violência contra a mulher.
+
+**Tecnologias principais:** Python, SQL, Pandas, Scikit-Learn, PostgreSQL e Streamlit.
+
+---
+
+## 📄 Licença
+
+Este projeto está disponibilizado sob a licença MIT, conforme as condições descritas no arquivo [LICENSE](LICENSE).
+
+---
+
+<p align="center">
+  <strong>⚖️ Ciência de Dados a serviço da informação, da transparência e do impacto social.</strong>
+</p>
