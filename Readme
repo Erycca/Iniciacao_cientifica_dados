@@ -1,52 +1,22 @@
 # ⚖️ Observatório de Violência contra a Mulher - SP
-<<<<<<< HEAD
 
 ### Dos Dados à Ação: Ciência de Dados, Tecnologia e Políticas Públicas
 
-<p align="left">
-  <a href="https://www.python.org/">
-    <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
-  </a>
-  <a href="https://streamlit.io/">
-    <img src="https://img.shields.io/badge/Streamlit-Dashboard-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit">
-  </a>
-  <a href="https://www.postgresql.org/">
-    <img src="https://img.shields.io/badge/PostgreSQL-Database-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL">
-  </a>
-  <a href="https://pandas.pydata.org/">
-    <img src="https://img.shields.io/badge/Pandas-Data%20Analysis-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="Pandas">
-  </a>
-  <a href="https://scikit-learn.org/">
-    <img src="https://img.shields.io/badge/Scikit--Learn-Machine%20Learning-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white" alt="Scikit-Learn">
-  </a>
-  <a href="LICENSE">
-    <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="MIT License">
-  </a>
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/Streamlit-Dashboard-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit">
+  <img src="https://img.shields.io/badge/PostgreSQL-Database-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL">
+  <img src="https://img.shields.io/badge/Pandas-Data_Analysis-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="Pandas">
+  <img src="https://img.shields.io/badge/Scikit--Learn-Machine_Learning-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white" alt="Scikit-Learn">
+  <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="MIT License">
 </p>
 
 <p align="center">
   <a href="https://observatoriodeviolenciacontramulhersp.streamlit.app">
-    <img src="https://img.shields.io/badge/ACESSAR%20OBSERVAT%C3%93RIO-Clique%20aqui-2E8B57?style=for-the-badge&logo=streamlit&logoColor=white" alt="Acessar Observatório">
+    <img src="https://img.shields.io/badge/ACESSAR_OBSERVATÓRIO-Dashboard-2E8B57?style=for-the-badge&logo=streamlit&logoColor=white" alt="Acessar Observatório">
   </a>
 </p>
 
-=======
-
-### Iniciação Científica
-
-<p align="left">
-  <img src="https://img.shields.io/badge/Python-3.10%2B-blue?logo=python&logoColor=white" />
-  <a href="https://observatoriodeviolenciacontramulhersp.streamlit.app">
-    <img src="https://img.shields.io/badge/Streamlit-Acessar%20Dashboard-red?logo=streamlit&logoColor=white" />
-  </a>
-  <img src="https://img.shields.io/badge/License-MIT-yellow.svg" />
-</p>
-
-> **Projeto de Iniciação Científica:**
->
-> "Dos Dados à Ação: Avaliação dos Mecanismos de Proteção e Diagnóstico da Violência de Gênero no Estado de São Paulo".
-
->>>>>>> 4140be1dfe1743fc9d2eabc5e4b0cea8f2e32dbc
 ---
 
 ## 📌 Sobre o Projeto
@@ -61,7 +31,7 @@ A proposta é transformar dados públicos em informações estratégicas que con
 
 > **Projeto de Iniciação Científica**
 >
-> "Dos Dados à Ação: Avaliação dos Mecanismos de Proteção e Diagnóstico da Violência de Gênero no Estado de São Paulo."
+> "Dos Dados à Ação: Avaliação dos Mecanismos de Proteção e Diagnóstico da Violência de Gênero no Estado de São Paulo".
 
 ---
 
@@ -77,8 +47,6 @@ A proposta é transformar dados públicos em informações estratégicas que con
 ---
 
 ## 📊 Fontes de Dados Integradas
-
-A pesquisa utiliza diferentes fontes de informação para ampliar a compreensão do fenômeno da violência contra a mulher.
 
 | Fonte | Informações analisadas |
 |---|---|
@@ -96,8 +64,6 @@ A metodologia contempla a articulação de três dimensões:
 1. **Segurança Pública:** registros administrativos de ocorrências.
 2. **Sistema de Justiça:** informações sobre processos e mecanismos judiciais de proteção.
 3. **Percepção Social:** dados amostrais sobre experiências de violência e subnotificação.
-
-A integração permite confrontar os registros oficiais com informações de percepção e vitimização, considerando as diferenças metodológicas e as limitações de cada fonte.
 
 ---
 
@@ -152,11 +118,9 @@ Os resultados dos modelos devem ser interpretados considerando a qualidade, a di
 
 O projeto possui uma aplicação desenvolvida em Streamlit para disponibilizar as análises e facilitar a exploração dos dados.
 
-### Acesse o Observatório
-
 <p align="center">
   <a href="https://observatoriodeviolenciacontramulhersp.streamlit.app">
-    <img src="https://img.shields.io/badge/ABRIR%20DASHBOARD-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Abrir Dashboard">
+    <img src="https://img.shields.io/badge/ABRIR_DASHBOARD-ACESSAR_AGORA-2E8B57?style=for-the-badge&logo=streamlit&logoColor=white" alt="Abrir Dashboard">
   </a>
 </p>
 
@@ -181,11 +145,8 @@ Iniciacao_cientifica_dados/
 │
 ├── data/
 │   ├── raw/
-│   │   └── Arquivos originais das fontes de dados
-│   │
 │   └── processed/
-│       ├── excel_externo/
-│       └── Arquivos tratados e consolidados
+│       └── excel_externo/
 │
 ├── src/
 │   ├── __init__.py
@@ -194,7 +155,6 @@ Iniciacao_cientifica_dados/
 │   ├── processor.py
 │   └── ssp_processor.py
 │
-<<<<<<< HEAD
 ├── app.py
 ├── requirements.txt
 ├── LICENSE
@@ -275,13 +235,13 @@ Os resultados apresentados possuem finalidade acadêmica, científica e informat
 
 ## 👩‍💻 Autoria e Desenvolvimento
 
-Projeto desenvolvido no contexto de **Iniciação Científica em Ciência da Computação**.
-
 **Pesquisadora:** Érica da Silva Barbosa
 
 **Área de pesquisa:** Ciência de Dados aplicada à análise da violência contra a mulher.
 
-**Tecnologias principais:** Python, SQL, Pandas, Scikit-Learn, PostgreSQL e Streamlit.
+**Formação:** Ciência da Computação.
+
+**Tecnologias:** Python, SQL, Pandas, Scikit-Learn, PostgreSQL e Streamlit.
 
 ---
 
@@ -294,8 +254,3 @@ Este projeto está disponibilizado sob a licença MIT, conforme as condições d
 <p align="center">
   <strong>⚖️ Ciência de Dados a serviço da informação, da transparência e do impacto social.</strong>
 </p>
-=======
-├── app.py                    # Aplicação principal da interface Streamlit
-├── requirements.txt          # Dependências do ambiente Python (Pandas, Plotly, Scikit-Learn)
-└── README.md                 # Documentação oficial do repositório
->>>>>>> 4140be1dfe1743fc9d2eabc5e4b0cea8f2e32dbc
