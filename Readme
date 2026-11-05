@@ -1,23 +1,16 @@
-# ⚖️ Observatório de Violência contra a Mulher - SP
-
-### Dos Dados à Ação: Ciência de Dados, Tecnologia e Políticas Públicas
-
-<div align="center">
-
-# Observatório de Violência contra a Mulher — São Paulo
+# Observatório de Violência contra a Mulher – São Paulo
 
 Análise de dados, indicadores e visualização de informações sobre a violência contra a mulher no Estado de São Paulo.
 
 [![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![Streamlit](https://shields.io)](https://streamlit.io/)
 [![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)](https://pandas.pydata.org/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
-[![Scikit--learn](https://img.shields.io/badge/Scikit--learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white)](https://scikit-learn.org/)
+[![PostgreSQL](https://shields.io)](https://www.postgresql.org/)
+[![Scikit-learn](https://shields.io)](https://scikit-learn.org/)
 
-[![Acessar Dashboard](https://img.shields.io/badge/Acessar_Dashboard-2E8B57?style=for-the-badge&logo=streamlit&logoColor=white)](https://observatoriodeviolenciacontramulhersp.streamlit.app)
+[![Acessar Dashboard](https://shields.io)](https://observatoriodeviolenciacontramulhersp.streamlit.app)
 
 </div>
-
 ---
 
 ## 📌 Sobre o Projeto
