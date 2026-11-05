@@ -4,13 +4,13 @@
 
 Análise de dados, indicadores e visualização de informações sobre a violência contra a mulher no Estado de São Paulo.
 
-[![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![Streamlit](https://shields.io)](https://streamlit.io/)
-[![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)](https://pandas.pydata.org/)
-[![PostgreSQL](https://shields.io)](https://www.postgresql.org/)
-[![Scikit-learn](https://shields.io)](https://scikit-learn.org/)
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Streamlit](https://shields.io)
+![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)
+![PostgreSQL](https://shields.io)
+![Scikit-learn](https://shields.io)
 
-[![Acessar Dashboard](https://shields.io)](https://observatoriodeviolenciacontramulhersp.streamlit.app)
+![Acessar Dashboard](https://shields.io)
 
 </div>
 
