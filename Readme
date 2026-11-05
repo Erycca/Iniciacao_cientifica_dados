@@ -1,4 +1,4 @@
-```markdown
+`markdown´
 # ⚖️ Observatório de Violência contra a Mulher - SP
 
 ### Iniciação Científica
@@ -46,7 +46,7 @@ A aplicação realiza a **triangulação de dados públicos e de pesquisas de pe
 
 ## 📁 Estrutura do Repositório
 
-'''text
+```text
 Iniciacao_cientifica_dados/
 │
 ├── .streamlit/               # Configurações visuais e temas da plataforma
