@@ -1,4 +1,6 @@
+```markdown
 # ⚖️ Observatório de Violência contra a Mulher - SP
+<<<<<<< HEAD
 
 ### Dos Dados à Ação: Ciência de Dados, Tecnologia e Políticas Públicas
 
@@ -29,6 +31,23 @@
   </a>
 </p>
 
+=======
+
+### Iniciação Científica
+
+<p align="left">
+  <img src="https://img.shields.io/badge/Python-3.10%2B-blue?logo=python&logoColor=white" />
+  <a href="https://observatoriodeviolenciacontramulhersp.streamlit.app">
+    <img src="https://img.shields.io/badge/Streamlit-Acessar%20Dashboard-red?logo=streamlit&logoColor=white" />
+  </a>
+  <img src="https://img.shields.io/badge/License-MIT-yellow.svg" />
+</p>
+
+> **Projeto de Iniciação Científica:**
+>
+> "Dos Dados à Ação: Avaliação dos Mecanismos de Proteção e Diagnóstico da Violência de Gênero no Estado de São Paulo".
+
+>>>>>>> 4140be1dfe1743fc9d2eabc5e4b0cea8f2e32dbc
 ---
 
 ## 📌 Sobre o Projeto
@@ -176,6 +195,7 @@ Iniciacao_cientifica_dados/
 │   ├── processor.py
 │   └── ssp_processor.py
 │
+<<<<<<< HEAD
 ├── app.py
 ├── requirements.txt
 ├── LICENSE
@@ -275,3 +295,8 @@ Este projeto está disponibilizado sob a licença MIT, conforme as condições d
 <p align="center">
   <strong>⚖️ Ciência de Dados a serviço da informação, da transparência e do impacto social.</strong>
 </p>
+=======
+├── app.py                    # Aplicação principal da interface Streamlit
+├── requirements.txt          # Dependências do ambiente Python (Pandas, Plotly, Scikit-Learn)
+└── README.md                 # Documentação oficial do repositório
+>>>>>>> 4140be1dfe1743fc9d2eabc5e4b0cea8f2e32dbc
