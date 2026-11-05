@@ -12,8 +12,7 @@ O projeto busca identificar padrões de violência, características sociodemogr
 
 A proposta é transformar dados públicos em informações estratégicas que contribuam para o diagnóstico da realidade estadual e para o desenvolvimento de políticas públicas baseadas em evidências.
 
-> **Projeto de Iniciação Científica**
->
+> **Projeto de Iniciação Científica**  
 > "Dos Dados à Ação: Avaliação dos Mecanismos de Proteção e Diagnóstico da Violência de Gênero no Estado de São Paulo".
 
 ---
@@ -102,8 +101,8 @@ Os resultados dos modelos devem ser interpretados considerando a qualidade, a di
 O projeto possui uma aplicação desenvolvida em Streamlit para disponibilizar as análises e facilitar a exploração dos dados.
 
 <p align="center">
-  <a href="https://observatoriodeviolenciacontramulhersp.streamlit.app">
-    <img src="https://img.shields.io/badge/ABRIR_DASHBOARD-ACESSAR_AGORA-2E8B57?style=for-the-badge&logo=streamlit&logoColor=white" alt="Abrir Dashboard">
+  <a href="[https://observatoriodeviolenciacontramulhersp.streamlit.app](https://observatoriodeviolenciacontramulhersp.streamlit.app)">
+    <img src="[https://img.shields.io/badge/ABRIR_DASHBOARD-ACESSAR_AGORA-2E8B57?style=for-the-badge&logo=streamlit&logoColor=white](https://img.shields.io/badge/ABRIR_DASHBOARD-ACESSAR_AGORA-2E8B57?style=for-the-badge&logo=streamlit&logoColor=white)" alt="Abrir Dashboard">
   </a>
 </p>
 
@@ -120,6 +119,7 @@ O projeto possui uma aplicação desenvolvida em Streamlit para disponibilizar a
 
 ## 📁 Estrutura do Repositório
 
+```text
 Iniciacao_cientifica_dados/
 │
 ├── .streamlit/
@@ -141,47 +141,3 @@ Iniciacao_cientifica_dados/
 ├── requirements.txt
 ├── LICENSE
 └── README.md
-
-## 📚 Contribuição Científica e Impacto Social
-
-O Observatório busca contribuir para a democratização do acesso à informação e para o fortalecimento de iniciativas de enfrentamento à violência contra a mulher.
-
-A utilização de Ciência de Dados permite organizar informações dispersas, investigar padrões e identificar questões que merecem atenção por parte dos pesquisadores e gestores públicos.
-
-O projeto também evidencia a importância da transparência, da qualidade dos dados e da integração entre instituições para a construção de diagnósticos mais abrangentes.
-
----
-
-## ⚠️ Considerações sobre os Dados
-
-As bases utilizadas possuem diferentes períodos de referência, metodologias de coleta, unidades de análise e níveis de abrangência.
-
-Por esse motivo, as comparações são realizadas respeitando as características de cada fonte.
-
-Os registros administrativos não representam necessariamente a totalidade dos episódios de violência, considerando a possibilidade de subnotificação.
-
-Os resultados apresentados possuem finalidade acadêmica, científica e informativa.
-
----
-
-## 👩‍💻 Autoria e Desenvolvimento
-
-**Pesquisadora:** Érica da Silva Barbosa
-
-**Área de pesquisa:** Ciência de Dados aplicada à análise da violência contra a mulher.
-
-**Formação:** Ciência da Computação.
-
-**Tecnologias:** Python, SQL, Pandas, Scikit-Learn, PostgreSQL e Streamlit.
-
----
-
-## 📄 Licença
-
-Este projeto está disponibilizado sob a licença MIT, conforme as condições descritas no arquivo [LICENSE](LICENSE).
-
----
-
-<p align="center">
-  <strong>⚖️ Ciência de Dados a serviço da informação, da transparência e do impacto social.</strong>
-</p>
